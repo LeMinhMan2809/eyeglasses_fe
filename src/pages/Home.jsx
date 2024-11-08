@@ -86,35 +86,46 @@ const Home = () => {
             "--swiper-pagination-margin-top": "20px",
           }}
         >
-          {productDataSwiper.map((product, index) => (
-            <SwiperSlide key={index}>
-              <ProductCardSwiper
-                key={index}
-                name={product.name}
-                images={product.images}
-                price={product.price}
-                description={product.description}
-              />
-            </SwiperSlide>
-          ))}
+          {productDataSwiper &&
+            productDataSwiper.map((product, index) => (
+              <SwiperSlide key={index}>
+                <ProductCardSwiper
+                  key={index}
+                  name={product.name}
+                  images={product.images}
+                  price={product.price}
+                  description={product.description}
+                />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
 
       <div className="mt-[5rem] ml-[80px] mr-[80px]">
         <h3 className="text-3xl pb-5">Sản phẩm </h3>
         <div className="grid grid-cols-4 gap-5">
-          {productData.map((product, index) => (
-            <Link to={`/product/${product?._id}`} key={index}>
-              <ProductCard
-                key={index}
-                name={product.name}
-                images={product.images}
-                price={product.price}
-                description={product.description}
-              />
-            </Link>
-          ))}
+          {productData.length > 0 ? (
+            productData.map((product, index) => (
+              <Link to={`/product/${product?._id}`} key={index}>
+                <ProductCard
+                  key={index}
+                  name={product.name}
+                  images={product.images}
+                  price={product.price}
+                  description={product.description}
+                />
+              </Link>
+            ))
+          ) : (
+            <Box
+              className="flex justify-center items-center mt-10"
+              sx={{ display: "flex" }}
+            >
+              <CircularProgress />
+            </Box>
+          )}
         </div>
+
         <div className="mt-6 text-center text-xl font-semibold border-[#E1D7C6] border-2 cursor-pointer hover:bg-orange-300 py-2 rounded-full">
           {loading ? (
             <Box
