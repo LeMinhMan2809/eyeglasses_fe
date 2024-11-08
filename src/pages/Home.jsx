@@ -104,7 +104,7 @@ const Home = () => {
         <h3 className="text-3xl pb-5">Sản phẩm </h3>
         <div className="grid grid-cols-4 gap-5">
           {productData.map((product, index) => (
-            <Link to={`/product/${product._id}`} key={index}>
+            <Link to={`/product/${product?._id}`} key={index}>
               <ProductCard
                 key={index}
                 name={product.name}
@@ -124,7 +124,7 @@ const Home = () => {
               <CircularProgress />
             </Box>
           ) : (
-            <Link to={`/category/${categoryData[0]._id}`}>
+            <Link to={`/category/${categoryData[0]?._id}`}>
               Xem thêm sản phẩm
             </Link>
           )}
