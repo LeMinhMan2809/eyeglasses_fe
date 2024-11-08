@@ -66,25 +66,25 @@ const Cart = () => {
             <table className="w-[80rem]">
               <thead className="text-lg bg-gray-50 dark:bg-gray-300">
                 <tr>
-                  <th className="px-5 py-3 w-[30rem]">Sản phẩm</th>
+                  <th className="px-5 py-3 w-[28rem]">Sản phẩm</th>
                   <th className="px-6 py-3">Giá</th>
-                  <th className="px-6 py-3">Số lượng</th>
+                  <th className="px-6 py-3 w-[12rem]">Số lượng</th>
                   <th className="px-6 py-3">Tổng cộng</th>
                   <th className="px-6 py-3">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {cartDataList.map((item, index) => {
+                {cartDataList?.map((item, index) => {
                   return (
                     <tr key={index} className="text-lg font-medium">
-                      <td className="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
+                      <td className="px-6 py-4 font-semibold text-gray-900 w-[30rem]">
                         <div className="flex items-center gap-3">
                           <img
                             className="w-[100px]"
                             src={`${url}/images/${item.product.images}`}
                             alt=""
                           />
-                          <div>{item.product.name}</div>
+                          <div className="w-[18rem]">{item.product.name}</div>
                         </div>
                       </td>
                       <td className="px-6 py-4">

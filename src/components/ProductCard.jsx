@@ -6,8 +6,8 @@ const ProductCard = (props) => {
   const { url } = useContext(StoreContext);
   return (
     <>
-      <div className="border-2 rounded-xl w-[300px] h- flex flex-col bg-white hover:cursor-pointer">
-        <div className="w-[290px] h-[280px] flex justify-center items-center self-center rounded-xl hoverZoom">
+      <div className="border-2 rounded-xl w-[280px] h- flex flex-col bg-white hover:cursor-pointer">
+        <div className="w-[270px] h-[280px] flex justify-center items-center self-center rounded-xl hoverZoom">
           <img
             className="rounded-xl"
             src={url + "/images/" + props.images}

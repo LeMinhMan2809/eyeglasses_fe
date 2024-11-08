@@ -21,6 +21,10 @@ const Banner = () => {
       }}
       navigation={true}
       modules={[Autoplay, Pagination, Navigation]}
+      style={{
+        "--swiper-navigation-color": "white",
+        "--swiper-navigation-size": "3rem",
+      }}
     >
       <SwiperSlide>
         <div>

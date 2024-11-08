@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { StoreContext } from "../context/StoreContext";
 import { getAddressAPI } from "../utils/addressAPI";
-import { addOrderAPI, getOrderStatusAPI } from "../utils/orderAPI";
+import {
+  addOrderAPI,
+  addOrderDetailAPI,
+  getOrderStatusAPI,
+} from "../utils/orderAPI";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Checkout = () => {
   const { url } = useContext(StoreContext);
@@ -22,6 +28,11 @@ const Checkout = () => {
   const [formOrderData, setFormOrderData] = useState({
     payment: "",
     note: "",
+  });
+
+  const [formOrderDetailData, setFormOrderDetailData] = useState({
+    order: "",
+    products: "",
   });
 
   useEffect(() => {
@@ -51,6 +62,7 @@ const Checkout = () => {
       setCartDataList(JSON.parse(ls.getItem("cart")));
     }
   }, []);
+  // console.log(cartDataList);
 
   const onChange = (e) => {
     setFormOrderData({ ...formOrderData, [e.target.name]: e.target.value });
@@ -70,44 +82,63 @@ const Checkout = () => {
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    // if (!selectedAddress) {
-    //   alert("Chưa chọn địa chỉ nhận hàng");
-    //   return;
-    // } else if (!paymentMethod) {
-    //   alert("Chưa chọn phương thức thanh toán");
-    //   return;
-    // }
-    // const fullAddress =
-    //   selectedAddress.addressFull +
-    //   " " +
-    //   selectedAddress.district.dName +
-    //   " " +
-    //   selectedAddress.ward.name;
-    // console.log(paymentMethod);
+    if (!selectedAddress) {
+      alert("Chưa chọn địa chỉ nhận hàng");
+      return;
+    } else if (!paymentMethod) {
+      alert("Chưa chọn phương thức thanh toán");
+      return;
+    }
+    const fullAddress =
+      selectedAddress.addressFull +
+      " " +
+      selectedAddress.ward.name +
+      " " +
+      selectedAddress.district.dName +
+      " " +
+      selectedAddress.city.name;
+    console.log(paymentMethod);
     const order = {
       user: userProfile[0]._id,
       total: cartDataList.reduce(
         (total, item) => total + item.product.price * item.quantity,
         0
       ),
-      address: "sdasd",
+      address: fullAddress,
       status: 1,
       payment: paymentMethod,
       note: formOrderData.note,
     };
-    addOrderAPI("/api/order/add", order).then((res) => {
+    addOrderAPI("/api/orders/add", order).then((res) => {
       if (res.success) {
-        console.log("Thành công");
-  
-        // Nếu VNPay thanh toán online, điều hướng đến vnpUrl
-        if (paymentMethod === 'Thanh toán online' && res.paymentUrl) {
-          window.location.href = res.paymentUrl;  // Chuyển hướng đến VNPay
-        } else {
-          alert("Thanh toán thành công!");
-          // hoặc bạn có thể làm gì đó sau khi thanh toán thành công, như hiển thị thông báo
-        }
+        // console.log(res.order);
+        const orderDetail = {
+          order: res.order._id,
+          products: cartDataList.map((item) => ({
+            product: item.product._id,
+            name: item.product.name,
+            image: item.product.images[0],
+            category: item.product.category,
+            price: item.product.price,
+            quantity: item.quantity,
+            total: item.product.price * item.quantity,
+          })),
+        };
+
+        addOrderDetailAPI("/api/orderDetail/add", orderDetail).then((res) => {
+          if (res.success) {
+            localStorage.removeItem("cart");
+            console.log("Thành công");
+            // toast.success("Thanh toán thành công");
+            if (paymentMethod === "Thanh toán online") {
+              window.location.href = res.paymentUrl;
+            } else {
+              window.location.href = "http://localhost:5172/thanks";
+            }
+          }
+        });
       } else {
-        alert("Thanh toán thất bại");
+        toast.error("Thanh toán thất bại");
       }
     });
   };

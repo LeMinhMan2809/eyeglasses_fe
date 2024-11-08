@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import loginPic from "../assets/login_banner.png";
 import { userLoginAPI } from "../utils/handleAPI";
 
@@ -45,13 +46,13 @@ const Login = () => {
   };
 
   return (
-    <div className="mt-6 ml-[9rem] mr-[8rem] flex gap-2">
+    <div className="mt-6 ml-[8rem] mr-[8rem] flex gap-2 justify-center items-center">
       <div>
-        <img className="rounded-lg w-[590px] h-[420px]" src={loginPic} alt="" />
+        <img className="rounded-lg w-[650px] h-[420px]" src={loginPic} alt="" />
       </div>
-      <div className="w-[640px] bg-stone-400">
+      <div className="w-[640px] bg-[#E1D7C6] rounded-lg">
         <div>
-          <p className="text-xl text-center font-bold mt-3">Đăng nhập</p>
+          <p className="text-xl text-center font-bold mt-5">Đăng nhập</p>
           <p className="text-lg text-center font-medium">
             Hãy đăng nhập để mua sắm dễ dàng hơn
           </p>
@@ -80,12 +81,18 @@ const Login = () => {
               className="w-full h-10 rounded-lg text-lg px-2 border-2 focus:outline-none focus:border-[#c3a26a] border-stone-500"
             />
             <div onClick={() => setShowPassword(!showPassword)}>
-              <RemoveRedEyeIcon className="absolute right-[200px] top-[335px] cursor-pointer" />
+              {showPassword ? (
+                <RemoveRedEyeIcon className="absolute right-[190px] top-[342px] cursor-pointer" />
+              ) : (
+                <VisibilityOffIcon className="absolute right-[190px] top-[342px] cursor-pointer" />
+              )}
             </div>
           </div>
 
-          <div>
-            <p className="text-lg font-bold mt-3 ml-10">Quên mật khẩu?</p>
+          <div className="mt-3">
+            <span className="text-lg font-bold ml-10">
+              <Link to="/forgotpw">Quên mật khẩu?</Link>
+            </span>
           </div>
 
           <div className="flex mt-5 justify-center">
@@ -112,7 +119,7 @@ const Login = () => {
           </div>
 
           <div>
-            <p className="text-lg text-center font-bold mt-2 ml-10">
+            <p className="text-lg text-center font-bold mt-2 ml-10 mb-5">
               Bạn chưa có tài khoản?{" "}
               <span className="underline text-[#238b7f]">
                 <Link to={"/register"}>Đăng ký ngay</Link>
