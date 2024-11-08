@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+.subMenu {
+  position: absolute;
+  width: 200px;
+  background-color: #e1d7c6;
+  box-shadow: 0 20px 45px #00000020;
+  margin-top: 0px;
+  opacity: 0;
+  z-index: 100;
+  /* display: none; */
+  transition: all ease-in-out 0.5s;
+}
+
+.subMenu a {
+  padding: 8px 10px;
+}
+
+.subMenuUser {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  position: absolute;
+  margin-top: 20px;
+  padding: 0.5rem;
+  right: 2.5rem;
+  top: 3rem;
+  background-color: #a1824d;
+  box-shadow: 0 20px 45px #00000020;
+  z-index: 10000;
+  /* display: none; */
+  transition: all ease-in-out 0.5s;
+  opacity: 1;
+}
+
+.closeSubMenuUser {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  position: absolute;
+  margin-top: 20px;
+  padding: 0.5rem;
+  right: 2rem;
+  top: 3rem;
+  background-color: #e1d7c6;
+  box-shadow: 0 20px 45px #00000020;
+  z-index: 100;
+  /* display: none; */
+  transition: all ease-in-out 0.3s;
+  opacity: 0;
+}
+
+/* ul li:hover .subMenu{
+  opacity: 1;
+  visibility: inherit;
+  z-index: 999;
+  display: block;
+  top: 100%;
+} */
+
+.productTitle:hover .subMenu {
+  /* display: block; */
+  /* visibility: visible; */
+  opacity: 1;
+}
+
+.css-1y5vrnu-MuiButtonBase-root-MuiCheckbox-root {
+  padding: 0 !important;
+}
+
+.css-1edfpdg-MuiTypography-root {
+  padding-left: 10px !important;
+}
+
+/* Hover Image */
+.hoverZoom {
+  overflow: hidden;
+}
+.hoverZoom img {
+  transition: transform 0.5s ease;
+}
+
+.hoverZoom:hover img {
+  transform: scale(1.2);
+}
