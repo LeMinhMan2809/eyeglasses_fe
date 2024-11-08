@@ -11,6 +11,10 @@
   font-family: "Montserrat", sans-serif;
 }
 
+body {
+  background: white;
+}
+
 .subMenu {
   position: absolute;
   width: 200px;
