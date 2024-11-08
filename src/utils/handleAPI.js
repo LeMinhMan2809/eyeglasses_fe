@@ -89,3 +89,13 @@ export const getProductsByCategory = async (url, id) => {
     throw error;
   }
 };
+
+export const getProductsByKeyword = async (url) => {
+  try {
+    const response = await axios.get("http://localhost:4000" + url);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
+};
