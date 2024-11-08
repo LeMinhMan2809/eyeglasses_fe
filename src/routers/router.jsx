@@ -12,7 +12,13 @@ import Profile from "../pages/Profile";
 
 import PrivateRoute from "../components/PrivateRoute";
 import Order from "../pages/Order";
-import PayMent from "../pages/PayMent";
+import Payment from "../pages/Payment";
+import Thanks from "../pages/Thanks";
+import OrderDetail from "../pages/OrderDetail";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
+import WishList from "../pages/WishList";
+import Blog from "../pages/Blog";
 
 const router = createBrowserRouter([
   {
@@ -42,9 +48,22 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "wishlist",
+        element: (
+          <PrivateRoute>
+            <WishList />
+          </PrivateRoute>
+        ),
+      },
 
       {
         path: "category/:categoryID",
+        element: <ListingProduct />,
+      },
+
+      {
+        path: "search",
         element: <ListingProduct />,
       },
 
@@ -64,13 +83,41 @@ const router = createBrowserRouter([
       },
       {
         path: "/payment",
-        element: <PayMent />,
+        element: <Payment />,
       },
       {
-        path: "orders",
+        path: "order",
         element: <Order />,
       },
+      {
+        path: "order/:orderID",
+        element: (
+          <PrivateRoute>
+            <OrderDetail />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/blog",
+        element: <Blog />,
+      },
     ],
+  },
+  {
+    path: "/forgotpw",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/reset-password/:id/:token",
+    element: <ResetPassword />,
+  },
+  {
+    path: "/thanks",
+    element: (
+      <PrivateRoute>
+        <Thanks />
+      </PrivateRoute>
+    ),
   },
 ]);
 
